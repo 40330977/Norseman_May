@@ -1,12 +1,14 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "DetectiveCharacter.h"
+#include "Engine/World.h"
 #include "Classes/Components/InputComponent.h"
 #include "Classes/GameFramework//PlayerController.h"
 #include "Classes/GameFramework/CharacterMovementComponent.h"
 #include "Engine/World.h"
 #include "Components/CapsuleComponent.h"
 #include "Engine.h"
+#include "Grabber1.h"
 
 // Sets default values
 ADetectiveCharacter::ADetectiveCharacter()
@@ -19,6 +21,7 @@ ADetectiveCharacter::ADetectiveCharacter()
 	FirstPersonCameraComponent->SetupAttachment(GetCapsuleComponent());
 	FirstPersonCameraComponent->RelativeLocation = FVector(-39.56f, 1.75f, 64.f);
 	FirstPersonCameraComponent->bUsePawnControlRotation = true;
+	
 
 }
 
@@ -26,6 +29,7 @@ ADetectiveCharacter::ADetectiveCharacter()
 void ADetectiveCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+	UE_LOG(LogTemp, Warning, TEXT("character test \n"));
 	
 }
 
@@ -34,18 +38,23 @@ void ADetectiveCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	
 }
 
 // Called to bind functionality to input
 void ADetectiveCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
+	
 	// Set up gameplay key bindings
 	PlayerInputComponent->BindAxis("MoveForward", this, &ADetectiveCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &ADetectiveCharacter::MoveRight);
 	PlayerInputComponent->BindAxis("Turn", this, &ADetectiveCharacter::AddControllerYawInput);
 	PlayerInputComponent->BindAxis("LookUp", this, &ADetectiveCharacter::AddControllerPitchInput);
 	PlayerInputComponent->BindAction("ClickEvent", IE_Pressed, this, &ADetectiveCharacter::ClickEvent);
+	/*PlayerInputComponent->BindAction("Grab", IE_Pressed, this, &UGrabber1::Grab);
+	PlayerInputComponent->BindAction("Grab", IE_Released, this, &ADetectiveCharacter::Release);*/
+	
 }
 
 // Move forward
@@ -107,19 +116,30 @@ AActor* ADetectiveCharacter::RayCast()
 	}
 }
 
+
+
+
+
 // Click events
 void ADetectiveCharacter::ClickEvent()
 {
 	// Returns the actor of the raycast and based on the class perform a different action
+	UE_LOG(LogTemp, Warning, TEXT("click test \n"));
 	AActor* Hit = this->RayCast();
+
+	
+
 	if (Hit != NULL)
 	{
+		
+
 		if (Hit->GetClass()->IsChildOf(APushButton::StaticClass()))
 		{
 			this->PressButton();
 		}
 	}
 }
+
 
 
 // Press button
@@ -129,4 +149,6 @@ void ADetectiveCharacter::PressButton()
 	CurrentButton->Push();
 	CurrentButton = nullptr;
 }
+
+
 
