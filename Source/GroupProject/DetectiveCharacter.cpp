@@ -84,7 +84,7 @@ AActor* ADetectiveCharacter::RayCast()
 {
 	FVector Start = FirstPersonCameraComponent->GetComponentLocation();
 	FVector ForwardVector = FirstPersonCameraComponent->GetForwardVector();
-	FVector End = ((ForwardVector * 100.0f) + Start);
+	FVector End = ((ForwardVector * 200.0f) + Start);
 
 	FCollisionQueryParams CollisionParams;
 

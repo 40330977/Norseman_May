@@ -4,31 +4,33 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "Camera/CameraComponent.h"
-#include "DetectiveCharacter.h"
-#include "Screen.h"
-#include "PushButton.generated.h"
+#include "Screen.generated.h"
 
 UCLASS()
-class APushButton : public AActor
+class AScreen : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	APushButton(const FObjectInitializer& ObjectInitializer);
+	AScreen(const FObjectInitializer& ObjectInitializer);
 
 	UPROPERTY(EditAnywhere)
-	UStaticMeshComponent* ButtonMesh;
+	USceneComponent* Screen;
 
 	UPROPERTY(EditAnywhere)
-	AScreen* Screen;
+	FString CorrectPassword;
 
-	UPROPERTY(EditAnywhere)
-	int32 Number;
+	// Prints asterisk in the screen
+	UFUNCTION(BlueprintImplementableEvent)
+	void PrintAsterisk(bool reset);
 
-	UFUNCTION()
-	void Push();
+	// Plays a correct answer sound
+	UFUNCTION(BlueprintImplementableEvent)
+	void CorrectAnswerSound();
+
+	// Add number to password
+	void AddNumber(int32 number);
 
 protected:
 	// Called when the game starts or when spawned
@@ -39,10 +41,6 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 private:
-	// Button is pushed
-	bool Pushed;
-
-	// Countdown
-	float Countdown;
-
+	FString CurrentPassword;
+	bool Completed;
 };
