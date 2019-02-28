@@ -41,7 +41,7 @@ void AScreen::AddNumber(int32 number)
 			Completed = true;
 			CorrectAnswerSound();
 			// Open the door
-
+			Door->OpenDoor();
 		}
 		else if (CurrentPassword.Len() == CorrectPassword.Len())
 		{

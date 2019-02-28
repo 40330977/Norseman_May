@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Door.h"
 #include "Screen.generated.h"
 
 UCLASS()
@@ -20,6 +21,9 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	FString CorrectPassword;
+
+	UPROPERTY(EditAnywhere)
+	ADoor* Door;
 
 	// Prints asterisk in the screen
 	UFUNCTION(BlueprintImplementableEvent)
