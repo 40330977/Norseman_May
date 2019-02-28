@@ -84,7 +84,7 @@ AActor* ADetectiveCharacter::RayCast()
 {
 	FVector Start = FirstPersonCameraComponent->GetComponentLocation();
 	FVector ForwardVector = FirstPersonCameraComponent->GetForwardVector();
-	FVector End = ((ForwardVector * 100.0f) + Start);
+	FVector End = ((ForwardVector * 200.0f) + Start);
 
 	FCollisionQueryParams CollisionParams;
 
@@ -94,6 +94,10 @@ AActor* ADetectiveCharacter::RayCast()
 	{
 		if (OutHit.bBlockingHit)
 		{
+			if (GEngine)
+			{
+				GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("You are hitting: %s"), *OutHit.GetActor()->GetName()));
+			}
 			return OutHit.GetActor();
 		}
 		else

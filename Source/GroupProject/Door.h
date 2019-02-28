@@ -4,31 +4,22 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "Camera/CameraComponent.h"
-#include "DetectiveCharacter.h"
-#include "Screen.h"
-#include "PushButton.generated.h"
+#include "Door.generated.h"
 
 UCLASS()
-class APushButton : public AActor
+class ADoor : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	APushButton(const FObjectInitializer& ObjectInitializer);
-
-	UPROPERTY(EditAnywhere)
-	UStaticMeshComponent* ButtonMesh;
-
-	UPROPERTY(EditAnywhere)
-	AScreen* Screen;
-
-	UPROPERTY(EditAnywhere)
-	int32 Number;
+	ADoor();
 
 	UFUNCTION()
-	void Push();
+	void OpenDoor();
+
+	UPROPERTY(EditAnywhere)
+	float YawValue;
 
 protected:
 	// Called when the game starts or when spawned
@@ -39,10 +30,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 private:
-	// Button is pushed
-	bool Pushed;
-
-	// Countdown
-	float Countdown;
+	// Whether to rotate the door or not
+	bool Rotate;
 
 };
