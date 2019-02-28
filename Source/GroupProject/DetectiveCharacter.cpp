@@ -94,6 +94,10 @@ AActor* ADetectiveCharacter::RayCast()
 	{
 		if (OutHit.bBlockingHit)
 		{
+			if (GEngine)
+			{
+				GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("You are hitting: %s"), *OutHit.GetActor()->GetName()));
+			}
 			return OutHit.GetActor();
 		}
 		else
