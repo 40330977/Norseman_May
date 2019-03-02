@@ -29,7 +29,7 @@ public:
 	void Grab();
 private:
 
-	float reach = 100.f;
+	float reach = 200.f;
 	UPhysicsHandleComponent* physicshandle = nullptr;
 	UInputComponent* PlayerInputComponent /*= nullptr*/;
 	
