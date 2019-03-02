@@ -13,7 +13,10 @@ class ADoor : public AActor
 	
 public:	
 	// Sets default values for this actor's properties
-	ADoor();
+	ADoor(const FObjectInitializer& ObjectInitializer);
+
+	UPROPERTY(EditAnywhere)
+	UStaticMeshComponent* DoorMesh;
 
 	UFUNCTION()
 	void OpenDoor();

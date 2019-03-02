@@ -27,6 +27,15 @@ public:
 	UPROPERTY(EditAnywhere)
 	int32 Number;
 
+	UPROPERTY(EditAnywhere)
+	bool IsNumber;
+
+	UPROPERTY(EditAnywhere)
+	bool IsEnter;
+
+	UPROPERTY(EditAnywhere)
+	bool IsDelete;
+
 	UFUNCTION()
 	void Push();
 

@@ -13,13 +13,15 @@ AScreen::AScreen(const FObjectInitializer& ObjectInitializer)
 	Screen = ObjectInitializer.CreateDefaultSubobject<USceneComponent>(this, TEXT("Screen"));
 	RootComponent = Screen;
 	Completed = false;
+	Correct = false;
+	CurrentPassword = "";
 }
 
 // Called when the game starts or when spawned
 void AScreen::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 }
 
 // Called every frame
@@ -35,24 +37,43 @@ void AScreen::AddNumber(int32 number)
 	if (!Completed)
 	{
 		CurrentPassword.AppendInt(number);
-		PrintAsterisk(false);
-		if (CurrentPassword == CorrectPassword)
+		PrintNumber(false, number);
+		if (CurrentPassword.Len() == CorrectPassword.Len())
 		{
 			Completed = true;
-			CorrectAnswerSound();
-			// Open the door
-			Door->OpenDoor();
-		}
-		else if (CurrentPassword.Len() == CorrectPassword.Len())
-		{
-			if (GEngine)
-			{
-				GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, CurrentPassword);
-			}
-			// Reset the current password
-			CurrentPassword = "";
-			PrintAsterisk(true);
 		}
 	}
 }
 
+// Calls enter in blueprint
+void AScreen::EnterPressed()
+{
+	if (!Correct)
+	{
+		if (CurrentPassword == CorrectPassword)
+		{
+			Correct = true;
+			CorrectAnswerSound();
+			// Open the door
+			Door->OpenDoor();
+		}
+		else
+		{
+			Completed = false;
+			// Reset the current password
+			CurrentPassword = "";
+			PrintNumber(true, 0);
+		}
+	}
+}
+
+// Calls delete in blueprint
+void AScreen::DeletePressed()
+{
+	if (!Correct && CurrentPassword.Len() > 0)
+	{
+		// Delete last digit
+		CurrentPassword.RemoveAt(CurrentPassword.Len());
+		Delete(CurrentPassword.Len());
+	}
+}

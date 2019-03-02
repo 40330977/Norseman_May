@@ -4,10 +4,13 @@
 #include "Engine.h"
 
 // Sets default values
-ADoor::ADoor()
+ADoor::ADoor(const FObjectInitializer& ObjectInitializer)
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+
+	DoorMesh = ObjectInitializer.CreateDefaultSubobject<UStaticMeshComponent>(this, TEXT("Door"));
+	RootComponent = DoorMesh;
 
 	YawValue = 0.0f;
 
@@ -46,5 +49,6 @@ void ADoor::Tick(float DeltaTime)
 void ADoor::OpenDoor()
 {
 	Rotate = true;
+	// Unlock door
 }
 

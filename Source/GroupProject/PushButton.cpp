@@ -35,7 +35,7 @@ void APushButton::Tick(float DeltaTime)
 		if (Pushed)
 		{
 			FVector meshLocation = ButtonMesh->GetRelativeTransform().GetLocation();
-			meshLocation.X -= 20;
+			meshLocation.X -= 0.1;
 			ButtonMesh->SetRelativeLocation(meshLocation);
 			Pushed = false;
 		}
@@ -49,10 +49,21 @@ void APushButton::Push()
 	if (!Pushed)
 	{
 		FVector meshLocation = ButtonMesh->GetRelativeTransform().GetLocation();
-		meshLocation.X += 20;
+		meshLocation.X += 0.1;
 		ButtonMesh->SetRelativeLocation(meshLocation);
 		Pushed = true;
-		Screen->AddNumber(Number);
+		if (IsNumber)
+		{
+			Screen->AddNumber(Number);
+		}
+		else if (IsEnter)
+		{
+			Screen->EnterPressed();
+		}
+		else if (IsDelete)
+		{
+			Screen->DeletePressed();
+		}
 	}
 }
 

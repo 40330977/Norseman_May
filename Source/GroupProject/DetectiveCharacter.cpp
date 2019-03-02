@@ -20,6 +20,9 @@ ADetectiveCharacter::ADetectiveCharacter()
 	FirstPersonCameraComponent->RelativeLocation = FVector(-39.56f, 1.75f, 64.f);
 	FirstPersonCameraComponent->bUsePawnControlRotation = true;
 
+	// Allow the character to crouch
+	GetCharacterMovement()->NavAgentProps.bCanCrouch = true;
+
 }
 
 // Called when the game starts or when spawned
@@ -46,6 +49,8 @@ void ADetectiveCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInput
 	PlayerInputComponent->BindAxis("Turn", this, &ADetectiveCharacter::AddControllerYawInput);
 	PlayerInputComponent->BindAxis("LookUp", this, &ADetectiveCharacter::AddControllerPitchInput);
 	PlayerInputComponent->BindAction("ClickEvent", IE_Pressed, this, &ADetectiveCharacter::ClickEvent);
+	PlayerInputComponent->BindAction("Crouch", IE_Pressed, this, &ADetectiveCharacter::StartCrouch);
+	PlayerInputComponent->BindAction("Crouch", IE_Released, this, &ADetectiveCharacter::EndCrouch);
 }
 
 // Move forward
@@ -132,5 +137,16 @@ void ADetectiveCharacter::PressButton()
 	class APushButton* CurrentButton = Cast<APushButton>(OutHit.GetActor());
 	CurrentButton->Push();
 	CurrentButton = nullptr;
+}
+
+// Start crouching
+void ADetectiveCharacter::StartCrouch()
+{
+	Crouch();
+}
+// End crouching
+void ADetectiveCharacter::EndCrouch()
+{
+	UnCrouch();
 }
 

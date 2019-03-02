@@ -25,9 +25,13 @@ public:
 	UPROPERTY(EditAnywhere)
 	ADoor* Door;
 
-	// Prints asterisk in the screen
+	// Prints number in the screen
 	UFUNCTION(BlueprintImplementableEvent)
-	void PrintAsterisk(bool reset);
+	void PrintNumber(bool reset, int32 number);
+
+	// Delete functionality
+	UFUNCTION(BlueprintImplementableEvent)
+	void Delete(int32 position);
 
 	// Plays a correct answer sound
 	UFUNCTION(BlueprintImplementableEvent)
@@ -35,6 +39,12 @@ public:
 
 	// Add number to password
 	void AddNumber(int32 number);
+
+	// Enter button pressed
+	void EnterPressed();
+
+	// Calls delete in blueprint
+	void DeletePressed();
 
 protected:
 	// Called when the game starts or when spawned
@@ -47,4 +57,5 @@ public:
 private:
 	FString CurrentPassword;
 	bool Completed;
+	bool Correct;
 };
