@@ -36,8 +36,10 @@ void AScreen::AddNumber(int32 number)
 {
 	if (!Completed)
 	{
+		// Add number to current password
 		CurrentPassword.AppendInt(number);
-		PrintNumber(false, number);
+		// Print password in the screen
+		PrintNumber(false, number, CurrentPassword.Len()-1);
 		if (CurrentPassword.Len() == CorrectPassword.Len())
 		{
 			Completed = true;
@@ -54,7 +56,6 @@ void AScreen::EnterPressed()
 		{
 			Correct = true;
 			CorrectAnswerSound();
-			// Open the door
 			Door->OpenDoor();
 		}
 		else
@@ -62,7 +63,7 @@ void AScreen::EnterPressed()
 			Completed = false;
 			// Reset the current password
 			CurrentPassword = "";
-			PrintNumber(true, 0);
+			PrintNumber(true, 0, 0);
 		}
 	}
 }
@@ -73,7 +74,8 @@ void AScreen::DeletePressed()
 	if (!Correct && CurrentPassword.Len() > 0)
 	{
 		// Delete last digit
-		CurrentPassword.RemoveAt(CurrentPassword.Len());
+		CurrentPassword.RemoveAt(CurrentPassword.Len() - 1);
 		Delete(CurrentPassword.Len());
+		Completed = false;
 	}
 }

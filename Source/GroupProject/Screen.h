@@ -27,7 +27,7 @@ public:
 
 	// Prints number in the screen
 	UFUNCTION(BlueprintImplementableEvent)
-	void PrintNumber(bool reset, int32 number);
+	void PrintNumber(bool reset, int32 number, int32 position);
 
 	// Delete functionality
 	UFUNCTION(BlueprintImplementableEvent)
@@ -56,6 +56,8 @@ public:
 
 private:
 	FString CurrentPassword;
+	// Wheter there are four numbers in the password
 	bool Completed;
+	// Wheter the password is complete
 	bool Correct;
 };

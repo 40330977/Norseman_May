@@ -44,9 +44,10 @@ public:
 	// Handles pressing buttons
 	UFUNCTION()
 	void PressButton();
-	// Crouching
+	// Start Crouching
 	UFUNCTION()
 	void StartCrouch();
+	// End Crouching
 	UFUNCTION()
 	void EndCrouch();
 

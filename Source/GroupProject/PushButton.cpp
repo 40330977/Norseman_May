@@ -14,7 +14,7 @@ APushButton::APushButton(const FObjectInitializer& ObjectInitializer)
 
 	ButtonMesh = ObjectInitializer.CreateDefaultSubobject<UStaticMeshComponent>(this, TEXT("Button"));
 	RootComponent = ButtonMesh;
-	Countdown = 0.8f;
+	Countdown = 0.1f;
 }
 
 // Called when the game starts or when spawned
@@ -29,6 +29,7 @@ void APushButton::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	// Move the button to its original position
 	Countdown -= DeltaTime;
 	if (Countdown < 0.0f)
 	{
@@ -39,7 +40,7 @@ void APushButton::Tick(float DeltaTime)
 			ButtonMesh->SetRelativeLocation(meshLocation);
 			Pushed = false;
 		}
-		Countdown = 0.8f;
+		Countdown = 0.1f;
 	}
 
 }
@@ -48,10 +49,12 @@ void APushButton::Push()
 {
 	if (!Pushed)
 	{
+		// Moves button a bit to the back
 		FVector meshLocation = ButtonMesh->GetRelativeTransform().GetLocation();
 		meshLocation.X += 0.1;
 		ButtonMesh->SetRelativeLocation(meshLocation);
 		Pushed = true;
+		// Intereaction depends on the type of button
 		if (IsNumber)
 		{
 			Screen->AddNumber(Number);
