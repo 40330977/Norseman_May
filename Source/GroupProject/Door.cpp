@@ -29,7 +29,7 @@ void ADoor::Tick(float DeltaTime)
 
 	if (Rotate)
 	{
-		FRotator NewRotation = FRotator(0.0f, -YawValue, 0.0f);
+		FRotator NewRotation = FRotator(0.0f, YawValue, 0.0f);
 		FQuat QuatRotation = FQuat(NewRotation);
 		AddActorLocalRotation(QuatRotation, false, 0, ETeleportType::None);
 		if (GEngine)
@@ -38,7 +38,7 @@ void ADoor::Tick(float DeltaTime)
 		}
 	}
 
-	if (GetActorRotation().Yaw < -100.0f)
+	if (GetActorRotation().Yaw < EndRotation)
 	{
 		Rotate = false;
 	}

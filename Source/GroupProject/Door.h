@@ -24,6 +24,9 @@ public:
 	UPROPERTY(EditAnywhere)
 	float YawValue;
 
+	UPROPERTY(EditAnywhere)
+	float EndRotation;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
