@@ -37,6 +37,10 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void CorrectAnswerSound();
 
+	// Plays a click sound
+	UFUNCTION(BlueprintImplementableEvent)
+	void ClickSound();
+
 	// Add number to password
 	void AddNumber(int32 number);
 

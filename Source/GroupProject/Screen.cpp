@@ -34,6 +34,7 @@ void AScreen::Tick(float DeltaTime)
 // Adds a number to the password sequence
 void AScreen::AddNumber(int32 number)
 {
+	ClickSound();
 	if (!Completed)
 	{
 		// Add number to current password
@@ -47,9 +48,10 @@ void AScreen::AddNumber(int32 number)
 	}
 }
 
-// Calls enter in blueprint
+// Checks if the password entered is correct
 void AScreen::EnterPressed()
 {
+	ClickSound();
 	if (!Correct)
 	{
 		if (CurrentPassword == CorrectPassword)
@@ -68,9 +70,10 @@ void AScreen::EnterPressed()
 	}
 }
 
-// Calls delete in blueprint
+// Deletes last digit from current password
 void AScreen::DeletePressed()
 {
+	ClickSound();
 	if (!Correct && CurrentPassword.Len() > 0)
 	{
 		// Delete last digit
