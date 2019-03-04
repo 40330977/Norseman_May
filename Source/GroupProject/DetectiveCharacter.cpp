@@ -133,4 +133,3 @@ void ADetectiveCharacter::PressButton()
 	CurrentButton->Push();
 	CurrentButton = nullptr;
 }
-
