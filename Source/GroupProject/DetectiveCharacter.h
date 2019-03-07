@@ -47,7 +47,12 @@ public:
 	// Handles pressing buttons
 	UFUNCTION()
 	void PressButton();
-	
+	// Start Crouching
+	UFUNCTION()
+	void StartCrouch();
+	// End Crouching
+	UFUNCTION()
+	void EndCrouch();
 
 private:
 	// Handles ray casting

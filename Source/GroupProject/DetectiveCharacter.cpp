@@ -23,6 +23,9 @@ ADetectiveCharacter::ADetectiveCharacter()
 	FirstPersonCameraComponent->bUsePawnControlRotation = true;
 	
 
+	// Allow the character to crouch
+	GetCharacterMovement()->NavAgentProps.bCanCrouch = true;
+
 }
 
 // Called when the game starts or when spawned
@@ -52,9 +55,8 @@ void ADetectiveCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInput
 	PlayerInputComponent->BindAxis("Turn", this, &ADetectiveCharacter::AddControllerYawInput);
 	PlayerInputComponent->BindAxis("LookUp", this, &ADetectiveCharacter::AddControllerPitchInput);
 	PlayerInputComponent->BindAction("ClickEvent", IE_Pressed, this, &ADetectiveCharacter::ClickEvent);
-	/*PlayerInputComponent->BindAction("Grab", IE_Pressed, this, &UGrabber1::Grab);
-	PlayerInputComponent->BindAction("Grab", IE_Released, this, &ADetectiveCharacter::Release);*/
-	
+	PlayerInputComponent->BindAction("Crouch", IE_Pressed, this, &ADetectiveCharacter::StartCrouch);
+	PlayerInputComponent->BindAction("Crouch", IE_Released, this, &ADetectiveCharacter::EndCrouch);
 }
 
 // Move forward
@@ -93,7 +95,7 @@ AActor* ADetectiveCharacter::RayCast()
 {
 	FVector Start = FirstPersonCameraComponent->GetComponentLocation();
 	FVector ForwardVector = FirstPersonCameraComponent->GetForwardVector();
-	FVector End = ((ForwardVector * 100.0f) + Start);
+	FVector End = ((ForwardVector * 200.0f) + Start);
 
 	FCollisionQueryParams CollisionParams;
 
@@ -103,6 +105,10 @@ AActor* ADetectiveCharacter::RayCast()
 	{
 		if (OutHit.bBlockingHit)
 		{
+			if (GEngine)
+			{
+				GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("You are hitting: %s"), *OutHit.GetActor()->GetName()));
+			}
 			return OutHit.GetActor();
 		}
 		else
@@ -150,5 +156,14 @@ void ADetectiveCharacter::PressButton()
 	CurrentButton = nullptr;
 }
 
-
+// Start crouching
+void ADetectiveCharacter::StartCrouch()
+{
+	Crouch();
+}
+// End crouching
+void ADetectiveCharacter::EndCrouch()
+{
+	UnCrouch();
+}
 

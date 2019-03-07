@@ -4,6 +4,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "GameFramework//Character.h"
 #include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
+#include "EngineUtils.h"
 
 // Sets default values
 APushButton::APushButton(const FObjectInitializer& ObjectInitializer)
@@ -11,8 +12,9 @@ APushButton::APushButton(const FObjectInitializer& ObjectInitializer)
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	MyMesh = ObjectInitializer.CreateDefaultSubobject<UStaticMeshComponent>(this, TEXT("MyMesh"));
-	RootComponent = MyMesh;
+	ButtonMesh = ObjectInitializer.CreateDefaultSubobject<UStaticMeshComponent>(this, TEXT("Button"));
+	RootComponent = ButtonMesh;
+	Countdown = 0.1f;
 }
 
 // Called when the game starts or when spawned
@@ -27,18 +29,18 @@ void APushButton::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	static float countdown = 0.8f;
-	countdown -= DeltaTime;
-	if (countdown < 0.0f)
+	// Move the button to its original position
+	Countdown -= DeltaTime;
+	if (Countdown < 0.0f)
 	{
 		if (Pushed)
 		{
-			FVector meshLocation = MyMesh->GetRelativeTransform().GetLocation();
-			meshLocation.X -= 20;
-			MyMesh->SetRelativeLocation(meshLocation);
+			FVector meshLocation = ButtonMesh->GetRelativeTransform().GetLocation();
+			meshLocation.X -= 0.1;
+			ButtonMesh->SetRelativeLocation(meshLocation);
 			Pushed = false;
 		}
-		countdown = 0.8f;
+		Countdown = 0.1f;
 	}
 
 }
@@ -47,10 +49,24 @@ void APushButton::Push()
 {
 	if (!Pushed)
 	{
-		FVector meshLocation = MyMesh->GetRelativeTransform().GetLocation();
-		meshLocation.X += 20;
-		MyMesh->SetRelativeLocation(meshLocation);
+		// Moves button a bit to the back
+		FVector meshLocation = ButtonMesh->GetRelativeTransform().GetLocation();
+		meshLocation.X += 0.1;
+		ButtonMesh->SetRelativeLocation(meshLocation);
 		Pushed = true;
+		// Intereaction depends on the type of button
+		if (IsNumber)
+		{
+			Screen->AddNumber(Number);
+		}
+		else if (IsEnter)
+		{
+			Screen->EnterPressed();
+		}
+		else if (IsDelete)
+		{
+			Screen->DeletePressed();
+		}
 	}
 }
 

@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "Camera/CameraComponent.h"
 #include "DetectiveCharacter.h"
+#include "Screen.h"
 #include "PushButton.generated.h"
 
 UCLASS()
@@ -18,7 +19,21 @@ public:
 	APushButton(const FObjectInitializer& ObjectInitializer);
 
 	UPROPERTY(EditAnywhere)
-	UStaticMeshComponent* MyMesh;
+	UStaticMeshComponent* ButtonMesh;
+
+	UPROPERTY(EditAnywhere)
+	AScreen* Screen;
+
+	UPROPERTY(EditAnywhere)
+	int32 Number;
+	
+	// Button Type, defines the interaction
+	UPROPERTY(EditAnywhere)
+	bool IsNumber;
+	UPROPERTY(EditAnywhere)
+	bool IsEnter;
+	UPROPERTY(EditAnywhere)
+	bool IsDelete;
 
 	UFUNCTION()
 	void Push();
@@ -34,5 +49,8 @@ public:
 private:
 	// Button is pushed
 	bool Pushed;
+
+	// Countdown
+	float Countdown;
 
 };
