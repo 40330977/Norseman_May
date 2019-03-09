@@ -13,13 +13,19 @@ class ADoor : public AActor
 	
 public:	
 	// Sets default values for this actor's properties
-	ADoor();
+	ADoor(const FObjectInitializer& ObjectInitializer);
+
+	UPROPERTY(EditAnywhere)
+	UStaticMeshComponent* DoorMesh;
 
 	UFUNCTION()
 	void OpenDoor();
 
 	UPROPERTY(EditAnywhere)
 	float YawValue;
+
+	UPROPERTY(EditAnywhere)
+	float EndRotation;
 
 protected:
 	// Called when the game starts or when spawned
