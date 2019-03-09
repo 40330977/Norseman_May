@@ -12,8 +12,12 @@ ADoor::ADoor(const FObjectInitializer& ObjectInitializer)
 	DoorMesh = ObjectInitializer.CreateDefaultSubobject<UStaticMeshComponent>(this, TEXT("Door"));
 	RootComponent = DoorMesh;
 
-	// Physics are initially set to false
-	DoorMesh->SetSimulatePhysics(false);
+	OpenSound = ObjectInitializer.CreateDefaultSubobject<UAudioComponent>(this, TEXT("Open Sound"));
+	OpenSound->bAutoActivate = false;
+
+	// Door is locked and not opened at the beginning
+	Lock = true;
+	Opened = false;
 
 	YawValue = 0.0f;
 
@@ -45,14 +49,30 @@ void ADoor::Tick(float DeltaTime)
 	{
 		Rotate = false;
 		// Unlock door
-		DoorMesh->SetSimulatePhysics(true);
+		Lock = false;
+		if (OpenSound->IsPlaying())
+		{
+			OpenSound->Stop();
+		}
 	}
 
+}
+
+// Unlocks the door
+void ADoor::UnlockDoor()
+{
+	Rotate = true;
 }
 
 // Opens the door
 void ADoor::OpenDoor()
 {
-	Rotate = true;
+	if (!Opened && !Lock)
+	{
+		Rotate = true;
+		EndRotation = -60.0f;
+		Opened = true;
+		OpenSound->Play();
+	}
 }
 

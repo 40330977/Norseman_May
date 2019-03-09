@@ -58,7 +58,7 @@ void AScreen::EnterPressed()
 		{
 			Correct = true;
 			CorrectAnswerSound();
-			Door->OpenDoor();
+			Door->UnlockDoor();
 		}
 		else
 		{
