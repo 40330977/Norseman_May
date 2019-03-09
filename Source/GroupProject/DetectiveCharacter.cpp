@@ -155,8 +155,7 @@ void ADetectiveCharacter::PressButton()
 	CurrentButton->Push();
 	CurrentButton = nullptr;
 }
-<<<<<<< HEAD
-=======
+
 
 // Start crouching
 void ADetectiveCharacter::StartCrouch()
@@ -168,5 +167,3 @@ void ADetectiveCharacter::EndCrouch()
 {
 	UnCrouch();
 }
-
->>>>>>> b7c5c49ffea7db92dccf87d7c2407dd24f679b2b
