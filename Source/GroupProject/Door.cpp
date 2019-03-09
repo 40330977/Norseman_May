@@ -12,6 +12,9 @@ ADoor::ADoor(const FObjectInitializer& ObjectInitializer)
 	DoorMesh = ObjectInitializer.CreateDefaultSubobject<UStaticMeshComponent>(this, TEXT("Door"));
 	RootComponent = DoorMesh;
 
+	// Physics are initially set to false
+	DoorMesh->SetSimulatePhysics(false);
+
 	YawValue = 0.0f;
 
 }
@@ -41,6 +44,8 @@ void ADoor::Tick(float DeltaTime)
 	if (GetActorRotation().Yaw < EndRotation)
 	{
 		Rotate = false;
+		// Unlock door
+		DoorMesh->SetSimulatePhysics(true);
 	}
 
 }
@@ -49,6 +54,5 @@ void ADoor::Tick(float DeltaTime)
 void ADoor::OpenDoor()
 {
 	Rotate = true;
-	// Unlock door
 }
 
