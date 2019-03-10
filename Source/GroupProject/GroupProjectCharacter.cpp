@@ -49,6 +49,7 @@ void AGroupProjectCharacter::BeginPlay()
 {
 	// Call the base class  
 	Super::BeginPlay();
+	UE_LOG(LogTemp, Warning, TEXT("character1 test \n"));
 }
 
 //////////////////////////////////////////////////////////////////////////

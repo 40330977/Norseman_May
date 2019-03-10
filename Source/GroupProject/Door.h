@@ -18,12 +18,20 @@ public:
 	UPROPERTY(EditAnywhere)
 	UStaticMeshComponent* DoorMesh;
 
+	UPROPERTY(EditAnywhere)
+	UAudioComponent* OpenSound;
+
+	// Unlocks door
+	UFUNCTION()
+	void UnlockDoor();
+	// Opens door
 	UFUNCTION()
 	void OpenDoor();
 
+	// Amount to rotate the door
 	UPROPERTY(EditAnywhere)
 	float YawValue;
-
+	// Max door rotation
 	UPROPERTY(EditAnywhere)
 	float EndRotation;
 
@@ -38,5 +46,11 @@ public:
 private:
 	// Whether to rotate the door or not
 	bool Rotate;
+
+	// Wheter the lock is door or not
+	bool Lock;
+
+	// Wheter the door is opened or not
+	bool Opened;
 
 };

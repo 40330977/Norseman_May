@@ -6,7 +6,10 @@
 #include "GameFramework/Character.h"
 #include "PushButton.h"
 #include "DrawDebugHelpers.h"
+#include "PhysicsEngine/PhysicsHandleComponent.h"
+#include "Grabber1.h"
 #include "DetectiveCharacter.generated.h"
+
 
 UCLASS()
 class ADetectiveCharacter : public ACharacter
@@ -38,12 +41,19 @@ public:
 	// Handles moving to the sides
 	UFUNCTION()
 	void MoveRight(float val);
+
 	// Handles click events
 	UFUNCTION()
 	void ClickEvent();
+
 	// Handles pressing buttons
 	UFUNCTION()
 	void PressButton();
+
+	// Handles opening the desk door
+	UFUNCTION()
+	void OpenDeskDoor();
+
 	// Start Crouching
 	UFUNCTION()
 	void StartCrouch();
@@ -57,5 +67,6 @@ private:
 	AActor* RayCast();
 	// The hit result
 	FHitResult OutHit;
-
+	UPhysicsHandleComponent* physicshandle = nullptr;
+	UGrabber1* grabber1 = nullptr;
 };
