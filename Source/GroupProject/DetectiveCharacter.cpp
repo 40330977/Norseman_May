@@ -154,8 +154,6 @@ void ADetectiveCharacter::PressButton()
 	CurrentButton = nullptr;
 }
 
-<<<<<<< HEAD
-=======
 // Opens desk door button
 void ADetectiveCharacter::OpenDeskDoor()
 {
@@ -163,7 +161,6 @@ void ADetectiveCharacter::OpenDeskDoor()
 	CurrentDoor->OpenDoor();
 	CurrentDoor = nullptr;
 }
->>>>>>> 7a7aef22c47582ee7c806095c44ff88cca2230d0
 
 // Start crouching
 void ADetectiveCharacter::StartCrouch()
