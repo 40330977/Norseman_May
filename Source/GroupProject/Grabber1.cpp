@@ -7,6 +7,7 @@
 #include "GameFramework/PlayerController.h"
 #include "DrawDebugHelpers.h"
 #include "Math/Color.h"
+#include "Components/AudioComponent.h"
 
 
 #define OUT
@@ -52,11 +53,20 @@ void UGrabber1::Grab() {
 			NAME_None,
 			actorhit->GetActorLocation()
 			);
+		audio = actorhit->FindComponentByClass<UAudioComponent>();
+		if (audio != nullptr)
+		{
+			audio->Play();
+		}
 	}
 }
 void UGrabber1::release() {
 	UE_LOG(LogTemp, Warning, TEXT("Grabber released \n"));
 	physicshandle->ReleaseComponent();
+	if (audio != nullptr)
+	{
+		audio->Stop();
+	}
 }
 void UGrabber1::findphysicshandlercomponent() {
 	physicshandle = GetOwner()->FindComponentByClass<UPhysicsHandleComponent>();

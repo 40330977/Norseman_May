@@ -9,6 +9,7 @@
 #include "Components/CapsuleComponent.h"
 #include "Engine.h"
 #include "Grabber1.h"
+#include "Door.h"
 
 // Sets default values
 ADetectiveCharacter::ADetectiveCharacter()
@@ -132,21 +133,18 @@ void ADetectiveCharacter::ClickEvent()
 	// Returns the actor of the raycast and based on the class perform a different action
 	UE_LOG(LogTemp, Warning, TEXT("click test \n"));
 	AActor* Hit = this->RayCast();
-
-	
-
 	if (Hit != NULL)
 	{
-		
-
 		if (Hit->GetClass()->IsChildOf(APushButton::StaticClass()))
 		{
 			this->PressButton();
 		}
+		if (Hit->GetClass()->IsChildOf(ADoor::StaticClass()))
+		{
+			this->OpenDeskDoor();
+		}
 	}
 }
-
-
 
 // Press button
 void ADetectiveCharacter::PressButton()
@@ -156,6 +154,16 @@ void ADetectiveCharacter::PressButton()
 	CurrentButton = nullptr;
 }
 
+<<<<<<< HEAD
+=======
+// Opens desk door button
+void ADetectiveCharacter::OpenDeskDoor()
+{
+	class ADoor* CurrentDoor = Cast<ADoor>(OutHit.GetActor());
+	CurrentDoor->OpenDoor();
+	CurrentDoor = nullptr;
+}
+>>>>>>> 7a7aef22c47582ee7c806095c44ff88cca2230d0
 
 // Start crouching
 void ADetectiveCharacter::StartCrouch()

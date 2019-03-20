@@ -41,12 +41,19 @@ public:
 	// Handles moving to the sides
 	UFUNCTION()
 	void MoveRight(float val);
+
 	// Handles click events
 	UFUNCTION()
 	void ClickEvent();
+
 	// Handles pressing buttons
 	UFUNCTION()
 	void PressButton();
+
+	// Handles opening the desk door
+	UFUNCTION()
+	void OpenDeskDoor();
+
 	// Start Crouching
 	UFUNCTION()
 	void StartCrouch();

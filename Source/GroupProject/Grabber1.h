@@ -32,6 +32,7 @@ private:
 	float reach = 200.f;
 	UPhysicsHandleComponent* physicshandle = nullptr;
 	UInputComponent* PlayerInputComponent /*= nullptr*/;
+	UAudioComponent* audio;
 	
 
 	void findphysicshandlercomponent();
