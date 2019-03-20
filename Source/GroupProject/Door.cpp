@@ -70,7 +70,7 @@ void ADoor::OpenDoor()
 	if (!Opened && !Lock)
 	{
 		Rotate = true;
-		EndRotation = -60.0f;
+		EndRotation = -100.0f;
 		Opened = true;
 		OpenSound->Play();
 	}
