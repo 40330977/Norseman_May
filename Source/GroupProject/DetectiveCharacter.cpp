@@ -172,4 +172,3 @@ void ADetectiveCharacter::EndCrouch()
 {
 	UnCrouch();
 }
-
