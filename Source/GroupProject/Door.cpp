@@ -39,10 +39,10 @@ void ADoor::Tick(float DeltaTime)
 		FRotator NewRotation = FRotator(0.0f, YawValue, 0.0f);
 		FQuat QuatRotation = FQuat(NewRotation);
 		AddActorLocalRotation(QuatRotation, false, 0, ETeleportType::None);
-		if (GEngine)
+		/*if (GEngine)
 		{
 			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::SanitizeFloat(GetActorRotation().Yaw));
-		}
+		}*/
 	}
 
 	if (GetActorRotation().Yaw < EndRotation)
@@ -70,7 +70,7 @@ void ADoor::OpenDoor()
 	if (!Opened && !Lock)
 	{
 		Rotate = true;
-		EndRotation = -60.0f;
+		EndRotation = -90.0f;
 		Opened = true;
 		OpenSound->Play();
 	}

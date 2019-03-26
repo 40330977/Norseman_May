@@ -100,16 +100,16 @@ AActor* ADetectiveCharacter::RayCast()
 
 	FCollisionQueryParams CollisionParams;
 
-	DrawDebugLine(GetWorld(), Start, End, FColor::Green, false, 1, 0, 1);
+	//DrawDebugLine(GetWorld(), Start, End, FColor::Green, false, 1, 0, 1);
 
 	if (GetWorld()->LineTraceSingleByChannel(OutHit, Start, End, ECC_Visibility, CollisionParams))
 	{
 		if (OutHit.bBlockingHit)
 		{
-			if (GEngine)
+			/*if (GEngine)
 			{
 				GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("You are hitting: %s"), *OutHit.GetActor()->GetName()));
-			}
+			}*/
 			return OutHit.GetActor();
 		}
 		else
