@@ -10,6 +10,7 @@
 #include "Engine.h"
 #include "Grabber1.h"
 #include "Door.h"
+#include "PhoneButton.h"
 
 // Sets default values
 ADetectiveCharacter::ADetectiveCharacter()
@@ -143,6 +144,10 @@ void ADetectiveCharacter::ClickEvent()
 		{
 			this->OpenDeskDoor();
 		}
+		if (Hit->GetClass()->IsChildOf(APhoneButton::StaticClass()))
+		{
+			this->PressPhoneButton();
+		}
 	}
 }
 
@@ -160,6 +165,14 @@ void ADetectiveCharacter::OpenDeskDoor()
 	class ADoor* CurrentDoor = Cast<ADoor>(OutHit.GetActor());
 	CurrentDoor->OpenDoor();
 	CurrentDoor = nullptr;
+}
+
+// Press phone button
+void ADetectiveCharacter::PressPhoneButton()
+{
+	class APhoneButton* CurrentButton = Cast<APhoneButton>(OutHit.GetActor());
+	CurrentButton->Push();
+	CurrentButton = nullptr;
 }
 
 // Start crouching

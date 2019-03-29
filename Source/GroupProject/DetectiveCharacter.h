@@ -49,6 +49,8 @@ public:
 	// Handles pressing buttons
 	UFUNCTION()
 	void PressButton();
+	UFUNCTION()
+	void PressPhoneButton();
 
 	// Handles opening the desk door
 	UFUNCTION()
