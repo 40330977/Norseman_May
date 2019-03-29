@@ -18,7 +18,7 @@ class ADetectiveCharacter : public ACharacter
 
 public:
 	// Sets default values for this character's properties
-	ADetectiveCharacter();
+	ADetectiveCharacter(const FObjectInitializer& ObjectInitializer);
 
 protected:
 	// Called when the game starts or when spawned
@@ -41,6 +41,10 @@ public:
 	// Handles moving to the sides
 	UFUNCTION()
 	void MoveRight(float val);
+
+	// Foot steps sound
+	UPROPERTY(EditAnywhere)
+	UAudioComponent* FootStepsSound;
 
 	// Handles click events
 	UFUNCTION()
@@ -71,4 +75,7 @@ private:
 	FHitResult OutHit;
 	UPhysicsHandleComponent* physicshandle = nullptr;
 	UGrabber1* grabber1 = nullptr;
+	// Bool for the step sound
+	bool MovingForward;
+	bool MovingSides;
 };

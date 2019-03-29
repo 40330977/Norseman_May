@@ -13,7 +13,7 @@
 #include "PhoneButton.h"
 
 // Sets default values
-ADetectiveCharacter::ADetectiveCharacter()
+ADetectiveCharacter::ADetectiveCharacter(const FObjectInitializer& ObjectInitializer)
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -23,6 +23,14 @@ ADetectiveCharacter::ADetectiveCharacter()
 	FirstPersonCameraComponent->SetupAttachment(GetCapsuleComponent());
 	FirstPersonCameraComponent->RelativeLocation = FVector(-39.56f, 1.75f, 64.f);
 	FirstPersonCameraComponent->bUsePawnControlRotation = true;
+
+	// Foot steps sound
+	FootStepsSound = ObjectInitializer.CreateDefaultSubobject<UAudioComponent>(this, TEXT("Steps Sound"));
+	FootStepsSound->bAutoActivate = false;
+
+	// Properties needed for the sound
+	MovingForward = false;
+	MovingSides = false;
 	
 
 	// Allow the character to crouch
@@ -42,8 +50,20 @@ void ADetectiveCharacter::BeginPlay()
 void ADetectiveCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
-	
+	if (MovingForward || MovingSides)
+	{
+		if (!FootStepsSound->IsPlaying())
+		{
+			FootStepsSound->Play();
+		}
+	}
+	else if (!MovingSides && !MovingForward)
+	{
+		if (FootStepsSound->IsPlaying())
+		{
+			FootStepsSound->Stop();
+		}
+	}
 }
 
 // Called to bind functionality to input
@@ -66,6 +86,7 @@ void ADetectiveCharacter::MoveForward(float Value)
 {
 	if ((Controller != NULL) && (Value != 0.0f))
 	{
+		MovingForward = true;
 		// Find out which way is forward
 		FRotator Rotation = Controller->GetControlRotation();
 		// Limit pitch when walking or falling
@@ -77,6 +98,11 @@ void ADetectiveCharacter::MoveForward(float Value)
 		const FVector Direction = FRotationMatrix(Rotation).GetScaledAxis(EAxis::X);
 		AddMovementInput(Direction, Value);
 	}
+	else
+	{
+		MovingForward = false;
+	}
+
 }
 
 // Move right
@@ -84,11 +110,16 @@ void ADetectiveCharacter::MoveRight(float Value)
 {
 	if ((Controller != NULL) && (Value != 0))
 	{
+		MovingSides = true;
 		// Find out which way is right
 		FRotator Rotation = Controller->GetControlRotation();
 		FVector Direction = FRotationMatrix(Rotation).GetScaledAxis(EAxis::Y);
 		// Add movement in that direction
 		AddMovementInput(Direction, Value);
+	}
+	else
+	{
+		MovingSides = false;
 	}
 }
 
