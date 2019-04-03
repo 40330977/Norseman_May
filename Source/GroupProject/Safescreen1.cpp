@@ -2,6 +2,7 @@
 
 #include "Safescreen1.h"
 #include "Engine.h"
+#include "EngineUtils.h"
 #include "Components/StaticMeshComponent.h"
 
 // Sets default values
@@ -10,11 +11,14 @@ ASafescreen1::ASafescreen1(const FObjectInitializer& ObjectInitializer)
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	Screen = ObjectInitializer.CreateDefaultSubobject<USceneComponent>(this, TEXT("Screen"));
-	RootComponent = Screen;
+	Screen1 = ObjectInitializer.CreateDefaultSubobject<USceneComponent>(this, TEXT("Screen1"));
+	RootComponent = Screen1;
 	Completed = false;
 	Correct = false;
 	CurrentPassword = "";
+	keycheck = false;
+	
+
 }
 
 // Called when the game starts or when spawned
@@ -28,6 +32,16 @@ void ASafescreen1::BeginPlay()
 void ASafescreen1::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	FVector keypos = key->GetActorLocation();
+	if (keypos.X > xmin && keypos.X<xmax && keypos.Y > ymin && keypos.Y < ymax && keypos.Z > zmin && keypos.Z < zmax)
+	{
+		keycheck = true;
+		UE_LOG(LogTemp, Warning, TEXT("Goal! \n"));
+	}
+	else
+	{
+		keycheck = false;
+	}
 
 }
 
@@ -52,9 +66,35 @@ void ASafescreen1::AddNumber(int32 number)
 void ASafescreen1::EnterPressed()
 {
 	ClickSound();
+
+	//CardRead();
+
+	//AActor* key;
+
+	//FName tagger = "Key";
+
+	//TArray<AActor*> card;
+
+	//Trigger->GetOverlappingActors(card, TSubclassOf<AActor>());
+
+	//for (TActorIterator<AActor> ActorItr(GetWorld()); ActorItr; ++ActorItr)
+	//{
+	//	// Same as with the Object Iterator, access the subclass instance with the * or -> operators.
+	//	//AStaticMeshActor *Mesh = *ActorItr;
+	//	ActorItr->GetComponentsByTag()
+	//	if (ActorItr->GetName() == "Cube3_5")
+	//	{
+	//		key = *ActorItr;
+	//	}
+	//	//ClientMessage(ActorItr->GetActorLocation().ToString());
+	//}
+
+	
+
 	if (!Correct)
 	{
-		if (CurrentPassword == CorrectPassword)
+		
+		if (CurrentPassword == CorrectPassword && keycheck == true)
 		{
 			Correct = true;
 			CorrectAnswerSound();
@@ -68,6 +108,8 @@ void ASafescreen1::EnterPressed()
 			PrintNumber(true, 0, 0);
 		}
 	}
+		
+	
 }
 
 // Deletes last digit from current password

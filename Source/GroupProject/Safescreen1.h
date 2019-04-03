@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Door.h"
+#include "Engine/TriggerBox.h"
 #include "Safescreen1.generated.h"
 
 UCLASS()
@@ -17,7 +18,29 @@ public:
 	ASafescreen1(const FObjectInitializer& ObjectInitializer);
 
 	UPROPERTY(EditAnywhere)
-		USceneComponent* Screen;
+		USceneComponent* Screen1;
+
+	UPROPERTY(EditAnywhere)
+		AActor* key;
+
+	UPROPERTY(EditAnywhere)
+		int32 xmin;
+
+	UPROPERTY(EditAnywhere)
+		int32 xmax;
+
+	UPROPERTY(EditAnywhere)
+		int32 ymin;
+
+	UPROPERTY(EditAnywhere)
+		int32 ymax;
+
+	UPROPERTY(EditAnywhere)
+		int32 zmin;
+
+	UPROPERTY(EditAnywhere)
+		int32 zmax;
+
 
 	UPROPERTY(EditAnywhere)
 		FString CorrectPassword;
@@ -40,6 +63,9 @@ public:
 	// Plays a click sound
 	UFUNCTION(BlueprintImplementableEvent)
 		void ClickSound();
+
+	UFUNCTION(BlueprintImplementableEvent)
+		void CardRead();
 
 	// Add number to password
 	void AddNumber(int32 number);
@@ -64,4 +90,6 @@ private:
 	bool Completed;
 	// Wheter the password is complete
 	bool Correct;
+	//if the key is in defined area
+	bool keycheck;
 };
