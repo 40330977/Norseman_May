@@ -55,18 +55,39 @@ void APushButton::Push()
 		ButtonMesh->SetRelativeLocation(meshLocation);
 		Pushed = true;
 		// Intereaction depends on the type of button
-		if (IsNumber)
+
+		if (Screen == nullptr)
 		{
-			Screen->AddNumber(Number);
+			if (IsNumber)
+			{
+				Screen1->AddNumber(Number);
+			}
+			else if (IsEnter)
+			{
+				Screen1->EnterPressed();
+			}
+			else if (IsDelete)
+			{
+				Screen1->DeletePressed();
+			}
 		}
-		else if (IsEnter)
+
+		if (Screen1 == nullptr)
 		{
-			Screen->EnterPressed();
+			if (IsNumber)
+			{
+				Screen->AddNumber(Number);
+			}
+			else if (IsEnter)
+			{
+				Screen->EnterPressed();
+			}
+			else if (IsDelete)
+			{
+				Screen->DeletePressed();
+			}
 		}
-		else if (IsDelete)
-		{
-			Screen->DeletePressed();
-		}
+		
 	}
 }
 

@@ -7,6 +7,7 @@
 #include "Camera/CameraComponent.h"
 #include "DetectiveCharacter.h"
 #include "Screen.h"
+#include "Safescreen1.h"
 #include "PushButton.generated.h"
 
 UCLASS()
@@ -23,6 +24,10 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	AScreen* Screen;
+
+	UPROPERTY(EditAnywhere)
+		ASafescreen1* Screen1;
+
 
 	UPROPERTY(EditAnywhere)
 	int32 Number;
