@@ -36,7 +36,7 @@ void APushButton::Tick(float DeltaTime)
 		if (Pushed)
 		{
 			FVector meshLocation = ButtonMesh->GetRelativeTransform().GetLocation();
-			meshLocation.X -= 0.1;
+			meshLocation.Y -= 0.1;
 			ButtonMesh->SetRelativeLocation(meshLocation);
 			Pushed = false;
 		}
@@ -51,7 +51,7 @@ void APushButton::Push()
 	{
 		// Moves button a bit to the back
 		FVector meshLocation = ButtonMesh->GetRelativeTransform().GetLocation();
-		meshLocation.X += 0.1;
+		meshLocation.Y += 0.1;
 		ButtonMesh->SetRelativeLocation(meshLocation);
 		Pushed = true;
 		// Intereaction depends on the type of button

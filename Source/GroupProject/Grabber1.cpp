@@ -115,7 +115,7 @@ const FHitResult UGrabber1::getfirstphysicsbodyinreach()
 	//float reach = 100.f;
 	FVector LTE = PVPL + PVPR.Vector()*reach;
 
-	DrawDebugLine(GetWorld(), PVPL, LTE, FColor(255, 0, 0), false, 0.f, 0.f, 10.f);
+	//DrawDebugLine(GetWorld(), PVPL, LTE, FColor(255, 0, 0), false, 0.f, 0.f, 10.f);
 
 	FCollisionQueryParams TraceParam(FName(TEXT("")), false, GetOwner());
 	FHitResult Hit;
