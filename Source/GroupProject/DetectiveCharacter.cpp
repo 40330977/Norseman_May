@@ -125,28 +125,9 @@ void ADetectiveCharacter::MoveRight(float Value)
 // Ray Casting
 AActor* ADetectiveCharacter::RayCast()
 {
-	APlayerController* PlayerController = Cast<APlayerController>(GetController());
-	if (PlayerController != nullptr)
-	{
-		// Get the coordinates of the mouse from our controller  
-		float LocationX;
-		float LocationY;
-		PlayerController->GetMousePosition(LocationX, LocationY);
-		// Do a trace and see if there the position intersects something in the world  
-		FVector2D MousePosition(LocationX, LocationY);
-		const bool bTraceComplex = false;
-		if (PlayerController->GetHitResultAtScreenPosition(MousePosition, ECC_Visibility, bTraceComplex, OutHit) == true)
-		{
-			if (OutHit.bBlockingHit)
-			{
-				return OutHit.GetActor();
-			}
-		}
-	}
-	return NULL;
-	/*FVector Start = FirstPersonCameraComponent->GetComponentLocation();
+	FVector Start = FirstPersonCameraComponent->GetComponentLocation();
 	FVector ForwardVector = FirstPersonCameraComponent->GetForwardVector();
-	FVector End = ((ForwardVector * 200.0f) + Start);
+	FVector End = ((ForwardVector * 350.0f) + Start);
 
 	FCollisionQueryParams CollisionParams;
 
@@ -164,7 +145,7 @@ AActor* ADetectiveCharacter::RayCast()
 	else
 	{
 		return NULL;
-	}*/
+	}
 }
 
 
