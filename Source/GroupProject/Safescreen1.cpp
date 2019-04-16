@@ -17,6 +17,7 @@ ASafescreen1::ASafescreen1(const FObjectInitializer& ObjectInitializer)
 	Correct = false;
 	CurrentPassword = "";
 	keycheck = false;
+	keyunlock = false;
 	
 
 }
@@ -42,7 +43,15 @@ void ASafescreen1::Tick(float DeltaTime)
 	{
 		keycheck = false;
 	}
-
+	if (keycheck == true)
+	{
+		keyunlock = true;
+		key->SetActorHiddenInGame(true);
+	}
+	if (keyunlock == true)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("unlocked! \n"));
+	}
 }
 
 // Adds a number to the password sequence
@@ -94,7 +103,7 @@ void ASafescreen1::EnterPressed()
 	if (!Correct)
 	{
 		
-		if (CurrentPassword == CorrectPassword && keycheck == true)
+		if (CurrentPassword == CorrectPassword && keyunlock == true)
 		{
 			Correct = true;
 			CorrectAnswerSound();

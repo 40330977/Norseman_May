@@ -92,4 +92,6 @@ private:
 	bool Correct;
 	//if the key is in defined area
 	bool keycheck;
+
+	bool keyunlock;
 };
