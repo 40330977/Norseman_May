@@ -62,6 +62,7 @@ void ADoor::Tick(float DeltaTime)
 void ADoor::UnlockDoor()
 {
 	Rotate = true;
+	DoorMesh->SetRenderCustomDepth(true);
 }
 
 // Opens the door
@@ -73,6 +74,7 @@ void ADoor::OpenDoor()
 		EndRotation = -90.0f;
 		Opened = true;
 		OpenSound->Play();
+		DoorMesh->SetRenderCustomDepth(false);
 	}
 }
 

@@ -42,7 +42,6 @@ ADetectiveCharacter::ADetectiveCharacter(const FObjectInitializer& ObjectInitial
 void ADetectiveCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	UE_LOG(LogTemp, Warning, TEXT("character test \n"));
 	
 }
 
@@ -128,20 +127,14 @@ AActor* ADetectiveCharacter::RayCast()
 {
 	FVector Start = FirstPersonCameraComponent->GetComponentLocation();
 	FVector ForwardVector = FirstPersonCameraComponent->GetForwardVector();
-	FVector End = ((ForwardVector * 200.0f) + Start);
+	FVector End = ((ForwardVector * 350.0f) + Start);
 
 	FCollisionQueryParams CollisionParams;
-
-	//DrawDebugLine(GetWorld(), Start, End, FColor::Green, false, 1, 0, 1);
 
 	if (GetWorld()->LineTraceSingleByChannel(OutHit, Start, End, ECC_Visibility, CollisionParams))
 	{
 		if (OutHit.bBlockingHit)
 		{
-			/*if (GEngine)
-			{
-				GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("You are hitting: %s"), *OutHit.GetActor()->GetName()));
-			}*/
 			return OutHit.GetActor();
 		}
 		else
@@ -163,7 +156,6 @@ AActor* ADetectiveCharacter::RayCast()
 void ADetectiveCharacter::ClickEvent()
 {
 	// Returns the actor of the raycast and based on the class perform a different action
-	UE_LOG(LogTemp, Warning, TEXT("click test \n"));
 	AActor* Hit = this->RayCast();
 	if (Hit != NULL)
 	{
