@@ -67,6 +67,10 @@ public:
 	UFUNCTION()
 	void EndCrouch();
 
+	// Plays a correct answer sound
+	UFUNCTION(BlueprintImplementableEvent)
+	void ChangeToSafeCamera();
+
 private:
 	// Handles ray casting
 	UFUNCTION()

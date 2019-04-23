@@ -71,10 +71,14 @@ void ADoor::OpenDoor()
 	if (!Opened && !Lock)
 	{
 		Rotate = true;
-		EndRotation = -90.0f;
+		EndRotation = FinalRotation;
 		Opened = true;
 		OpenSound->Play();
 		DoorMesh->SetRenderCustomDepth(false);
 	}
 }
 
+bool ADoor::isDoorOpened()
+{
+	return Opened;
+}

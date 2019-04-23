@@ -34,6 +34,11 @@ public:
 	// Max door rotation
 	UPROPERTY(EditAnywhere)
 	float EndRotation;
+	// Max door rotation
+	UPROPERTY(EditAnywhere)
+	float FinalRotation;
+
+	bool isDoorOpened();
 
 protected:
 	// Called when the game starts or when spawned

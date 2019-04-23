@@ -11,6 +11,7 @@
 #include "Grabber1.h"
 #include "Door.h"
 #include "PhoneButton.h"
+#include "CallingCard.h"
 
 // Sets default values
 ADetectiveCharacter::ADetectiveCharacter(const FObjectInitializer& ObjectInitializer)
@@ -170,6 +171,10 @@ void ADetectiveCharacter::ClickEvent()
 		if (Hit->GetClass()->IsChildOf(APhoneButton::StaticClass()))
 		{
 			this->PressPhoneButton();
+		}
+		if (Hit->GetClass()->IsChildOf(ACallingCard::StaticClass()))
+		{
+			this->ChangeToSafeCamera();
 		}
 	}
 }

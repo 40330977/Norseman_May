@@ -18,6 +18,7 @@ ASafescreen1::ASafescreen1(const FObjectInitializer& ObjectInitializer)
 	CurrentPassword = "";
 	keycheck = false;
 	keyunlock = false;
+	soundPlayed = false;
 	
 
 }
@@ -34,9 +35,14 @@ void ASafescreen1::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	FVector keypos = key->GetActorLocation();
-	if (keypos.X > xmin && keypos.X<xmax && keypos.Y > ymin && keypos.Y < ymax && keypos.Z > zmin && keypos.Z < zmax)
+	if (keypos.X > xmin && keypos.X<xmax && keypos.Y > ymin && keypos.Y < ymax && keypos.Z > zmin && keypos.Z < zmax && CupboardDoor->isDoorOpened())
 	{
 		keycheck = true;
+		if (!soundPlayed)
+		{
+			InsertedCardSound();
+			soundPlayed = true;
+		}
 		UE_LOG(LogTemp, Warning, TEXT("Goal! \n"));
 	}
 	else

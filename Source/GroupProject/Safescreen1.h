@@ -48,6 +48,9 @@ public:
 	UPROPERTY(EditAnywhere)
 		ADoor* Door;
 
+	UPROPERTY(EditAnywhere)
+		ADoor* CupboardDoor;
+
 	// Prints number in the screen
 	UFUNCTION(BlueprintImplementableEvent)
 		void PrintNumber(bool reset, int32 number, int32 position);
@@ -59,6 +62,10 @@ public:
 	// Plays a correct answer sound
 	UFUNCTION(BlueprintImplementableEvent)
 		void CorrectAnswerSound();
+
+	// Plays a card inserted sound
+	UFUNCTION(BlueprintImplementableEvent)
+		void InsertedCardSound();
 
 	// Plays a click sound
 	UFUNCTION(BlueprintImplementableEvent)
@@ -94,4 +101,6 @@ private:
 	bool keycheck;
 
 	bool keyunlock;
+
+	bool soundPlayed;
 };
